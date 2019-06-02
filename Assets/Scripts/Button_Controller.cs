@@ -5,46 +5,116 @@ using UnityEngine;
 public class Button_Controller : MonoBehaviour
 {
 
-    public Transform comandoArriba;
-    public Transform comandoAbajo;
-    public Transform comandoIzquierda;
-    public Transform comandoDerecha;
-    public Transform comandoJump;
+    public Transform upCommand, downCommand, leftCommand, rightCommand, fUpCommand, fDownCommand, fLeftCommand, fRightCommand, jumpCommand;
+    private Vector2 position;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private Vector2 scale = new Vector2(1.5f, 1.5f);
+
+    /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */    
+    void Start() {
+        string temp = PlayerPrefs.GetString("level");
+        string output = temp.Substring(temp.Length -1, 1);
+        int levelNumber = int.Parse(output);
     }
 
-    // Update is called once per frame
-    void Update()
+    /* Metodos que controlan todos los botones del juego */
+    public void titleScreen()
     {
-        
+        StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, "TitleScreen"));
     }
 
-    public void ComandoArriba()
+    public void levelsScreen()
     {
-        Instantiate(comandoArriba, new Vector3(-7, 0, -6), Quaternion.identity);
+       StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, "Levels"));
     }
 
-    public void ComandoAbajo()
+    public void UpCommand()
     {
-        Instantiate(comandoAbajo, new Vector3(-7, 0, -6), Quaternion.identity);
+        Instantiate(upCommand, new Vector3(-7, 0, -6), Quaternion.identity);
     }
 
-    public void ComandoIzquierda()
+    public void DownCommand()
     {
-        Instantiate(comandoIzquierda, new Vector3(-7, 0, -6), Quaternion.identity);
+        Instantiate(downCommand, new Vector3(-7, 0, -6), Quaternion.identity);
     }
 
-    public void ComandoDerecha()
+    public void LeftCommand()
     {
-        Instantiate(comandoDerecha, new Vector3(-7, 0, -6), Quaternion.identity);
+        Instantiate(leftCommand, new Vector3(-7, 0, -6), Quaternion.identity);
     }
 
-    public void ComandoJump()
+    public void RightCommand()
     {
-        Instantiate(comandoJump, new Vector3(-7, 0, -6), Quaternion.identity);
+        Instantiate(rightCommand, new Vector3(-7, 0, -6), Quaternion.identity);
+    }
+
+    public void FUpCommand()
+    {
+        Instantiate(fUpCommand, new Vector3(-7, 0, -6), Quaternion.identity);
+    }
+
+    public void FDownCommand()
+    {
+        Instantiate(fDownCommand, new Vector3(-7, 0, -6), Quaternion.identity);
+    }
+
+    public void FLeftCommand()
+    {
+        Instantiate(fLeftCommand, new Vector3(-7, 0, -6), Quaternion.identity);
+    }
+
+    public void FRightCommand()
+    {
+        Instantiate(fRightCommand, new Vector3(-7, 0, -6), Quaternion.identity);
+    }
+
+    public void JumpCommand()
+    {
+        Instantiate(jumpCommand, new Vector3(-7, -6, -6), Quaternion.identity);
+    }
+
+    public void LoadLevel(int levelN)
+    {
+        string level = "Level" + levelN;
+        StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, level));
+    }
+
+     public void LoadLastLevel()
+    {
+        string lastLevel = PlayerPrefs.GetString("level");
+        if(PlayerPrefs.HasKey("level")){
+            StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, lastLevel));
+        }else{
+            StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, "Level1"));
+        }
+    }
+
+    public void ResumeLevel()
+    {
+        GameObject.Find("CommandPanel").GetComponent<Logic>().pauseMenu();
+    }
+    
+
+    public void LoadNextLevel()
+    {
+        string nextLevel = "Level" + GetLevelNumber(GameVars.instance.getLevel());
+
+        StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, nextLevel));
+    }
+
+    public void RetryLevel()
+    {
+        StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, GameVars.instance.getLevel()));
+    }
+
+    private int GetLevelNumber(string level)
+    {
+        string temp = level;
+        string output = temp.Substring(temp.Length -1, 1);
+        int levelNumber = int.Parse(output);
+
+        levelNumber++;
+
+        return levelNumber;
     }
 }

@@ -4,100 +4,95 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Collider2D[] huecosOcupados = new Collider2D[2];
+    private Collider2D[] gapsOcuppied = new Collider2D[2];
 
     private ContactFilter2D contactFilter = new ContactFilter2D();
 
-    public Collider2D upCollider;
+    public Collider2D upCollider, downCollider, leftCollider, rightCollider;
+     
+    public LayerMask layerMask;
 
-    public Collider2D downCollider;
+    private GameObject goal;
 
-    public Collider2D leftCollider;
+    /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */
+    void Start() {
+        contactFilter.useLayerMask = true;
+        contactFilter.layerMask = layerMask;
 
-    public Collider2D rightCollider;
+        goal = GameObject.Find("Goal");
+    }
 
-
+    /* Metodos para comprobar si el camino del jugador esta bloqueado en las diversas direcciones */
     public bool BlockedUp(){
 
-        upCollider.OverlapCollider(contactFilter.NoFilter(), huecosOcupados);
+        upCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
-        if (huecosOcupados[0] != null)
-        {
-            Debug.Log("Celda superior ocupado");
-
-            huecosOcupados = new Collider2D[1];  
-
+        if (gapsOcuppied[0] != null){
+            gapsOcuppied = new Collider2D[1];  
             return true;
-        }  
-
-        Debug.Log("Celda superior libre");
-        
-        huecosOcupados = new Collider2D[1];  
+        }          
+        gapsOcuppied = new Collider2D[1];  
         
         return false;
     }
 
     public bool BlockedDown(){
 
-        downCollider.OverlapCollider(contactFilter.NoFilter(), huecosOcupados);
+        bool blocked = false;
 
-        if (huecosOcupados[0] != null)
-        {
-            Debug.Log("Celda inferior ocupado");
+        downCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
-            huecosOcupados = new Collider2D[1];  
-
-            return true;
+        if (gapsOcuppied[0] != null){
+            gapsOcuppied = new Collider2D[1];  
+            blocked = true;
         }              
 
-        Debug.Log("Celda inferior libre");
+        gapsOcuppied = new Collider2D[1];  
 
-        huecosOcupados = new Collider2D[1];  
-
-        return false;
+        return blocked;
     }
 
     public bool BlockedLeft(){
 
-        leftCollider.OverlapCollider(contactFilter.NoFilter(), huecosOcupados);
+        bool blocked = false;
 
-        if (huecosOcupados[0] != null)
-        {
-            Debug.Log("Celda izquierda ocupado");
+        leftCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
-            huecosOcupados = new Collider2D[1];  
-
-            return true;
+        if (gapsOcuppied[0] != null){
+            gapsOcuppied = new Collider2D[1];  
+            blocked = true;
         }          
 
-        Debug.Log("Celda izquierda libre");
+        gapsOcuppied = new Collider2D[1];     
 
-        huecosOcupados = new Collider2D[1];     
-
-        return false; 
+        return blocked; 
 
     }
 
     public bool BlockedRight(){
 
-        rightCollider.OverlapCollider(contactFilter.NoFilter(), huecosOcupados);
+        bool blocked = false;
 
-        if (huecosOcupados[0] != null)
-        {
-            Debug.Log("Celda derecha ocupado");
+        rightCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
-            huecosOcupados = new Collider2D[1];  
-
-            return true;
+        if (gapsOcuppied[0] != null){
+            gapsOcuppied = new Collider2D[1];  
+            blocked = true;
         }     
 
-        Debug.Log("Celda derecha libre");
+        gapsOcuppied = new Collider2D[1];     
 
-        huecosOcupados = new Collider2D[1];     
-
-        return false;      
+        return blocked;      
 
     }
 
+    // Metodo que comprueba si el jugador se encuentra en las escaleras (Condicion de victoria)
+    public bool checkWinCondition(){
+        bool winCondition = false;
+
+        if(GetComponent<BoxCollider2D>().OverlapPoint(goal.transform.position)) winCondition = true;
+
+        return winCondition;
+    }
 
 }

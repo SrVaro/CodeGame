@@ -1,34 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class JumpCommand : MonoBehaviour
 {
-    private bool moviendose = false;
+    private bool moving, aboveGap = false;
 
-    public string accion;
+    private string actualGap;
 
-    private string huecoActual;
-
-    private Vector3 posicionHueco;
-
-    private bool encimaDeHueco = false;
+    private Vector3 gapPosition;
 
     public Material LineMaterial;
     
-     public GameObject gameObject1;          // Reference to the first GameObject
+    public GameObject jump, jumpEnd;   
 
-     public GameObject gameObject2;          // Reference to the second GameObject
- 
-     private LineRenderer line;                           // Line Renderer
+    private LineRenderer line; 
 
-     // Use this for initialization
-     void Start () {
-         // Add a Line Renderer to the GameObject
+     /* Funcion que se ejecuta cuando se inicia el inicio */
+    void Start ()
+    {
          line = this.gameObject.AddComponent<LineRenderer>();
-         // Set the width of the Line Renderer
+
          line.SetWidth(0.05F, 0.05F);
-         // Set the number of vertex fo the Line Renderer
+
          line.SetVertexCount(3);
 
          line.sortingLayerName = "Command";
@@ -38,43 +33,42 @@ public class JumpCommand : MonoBehaviour
          line.startWidth = 0.5f;
          
          line.endWidth = 0.5f;
-     }
-     
-     // Update is called once per frame
-     void Update () {
-         // Check if the GameObjects are not null
-         if (gameObject1 != null && gameObject2 != null)
-         {
-             // Update position of the two vertex of the Line Renderer
-             line.SetPosition(0, new Vector3(gameObject1.transform.position.x, gameObject1.transform.position.y, -6));
-             line.SetPosition(1, new Vector3((gameObject1.transform.position.x + 2) + (gameObject2.transform.position.x + 2), gameObject1.transform.position.y + gameObject2.transform.position.y, -12) / 2);
-             line.SetPosition(2, new Vector3(gameObject2.transform.position.x, gameObject2.transform.position.y, -6));
-         }
-
-         if (moviendose)
-        {
-            MoverCursor();
-        }
-     }
-
-     private void OnMouseDown()
-    {
-        moviendose = true;
     }
+     
+    /* Metodo que se ejecuta una vez por FRAME, es decir, 60 por segundos */
+    void Update () 
+    {
+        if (jump != null && jumpEnd != null)
+        {
+            line.SetPosition(0, new Vector3(jump.transform.position.x, jump.transform.position.y, -6));
+            line.SetPosition(1, new Vector3((jump.transform.position.x + 2) + (jumpEnd.transform.position.x + 2), jump.transform.position.y + jumpEnd.transform.position.y, -12) / 2);
+            line.SetPosition(2, new Vector3(jumpEnd.transform.position.x, jumpEnd.transform.position.y, -6));
+        }
+
+        if (moving) MoverCursor();
+    }
+
+    /* Metodo que se llama cuando se presiona el boton izquierdo del raton */
+    private void OnMouseDown()
+    {
+        moving = true;
+    }
+
+    /* Metodo que se llama cuando se levanta el boton izquierdo del raton */
     private void OnMouseUp()
     {
-        moviendose = false;
+        moving = false;
 
-        if(encimaDeHueco){
-            transform.position = posicionHueco;
+        if(aboveGap){
+            transform.position = gapPosition;
         }else{
-            huecoActual = "none";
+            actualGap = "none";
         }
-
-        Debug.Log(huecoActual);
 
     }
 
+
+    /* Metodo que se sigue el movimiento del raton y se lo aplica al comando */
     private void MoverCursor()
     {
         var screenPoint = Input.mousePosition;
@@ -83,25 +77,30 @@ public class JumpCommand : MonoBehaviour
     }
 
 
+        /* Metodo que se llama cuando el objeto padre entra en un Trigger */
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Tocando el " + collision.gameObject.name);  
-
-        huecoActual = collision.gameObject.name;      
+        actualGap = collision.gameObject.name;      
     }
 
+    /* Metodo que se llama cuando el objeto padre sale de un Trigger */
     private void OnTriggerExit2D(Collider2D collision)
     {
-        encimaDeHueco = false;
-
-        Debug.Log("Saliedo de un hueco");
+        aboveGap = false;
 
     }
 
+    /* Metodo que se llama cuando el objeto padre esta dentro de un Trigger */
         private void OnTriggerStay2D(Collider2D collision)
     {
-        encimaDeHueco = true;
+        aboveGap = true;
 
-        posicionHueco = collision.gameObject.transform.position;
+        gapPosition = collision.gameObject.transform.position;
+    }
+
+    /* Metodo que devuelve un hueco */
+    public string getHueco()
+    {
+        return actualGap;
     }
 }

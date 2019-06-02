@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1604607133498633191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1604607133498633189}
+  - component: {fileID: 1604607133498633190}
+  m_Layer: 0
+  m_Name: Button_Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1604607133498633189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604607133498633191}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1213.9976, y: -503.1608, z: -22.9778}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604607133498633190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604607133498633191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6413f040f74e4f419285c21b8e7f5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upCommand: {fileID: 2950237981415881825, guid: 9a4b9c99553e94c40ae417b2ca165c07,
+    type: 3}
+  downCommand: {fileID: 1436067969231097304, guid: b97a1b53ac3c0fa44b4dba210d43f6eb,
+    type: 3}
+  leftCommand: {fileID: 6931035667774557519, guid: 9861c68facb029f45932738492be943b,
+    type: 3}
+  rightCommand: {fileID: 4178466854482432616, guid: b1c9de65bb141e8429a66d45623b7651,
+    type: 3}
+  fUpCommand: {fileID: 2678421165373050833, guid: 4e0c4ffcfa44f704392508eda5b8c5b9,
+    type: 3}
+  fDownCommand: {fileID: 223376065734270618, guid: 91ad846eb28eb5c428e5a826aeca9fe5,
+    type: 3}
+  fLeftCommand: {fileID: 3504523767170273002, guid: 4252ce8239655de4a96886ff326b27cf,
+    type: 3}
+  fRightCommand: {fileID: 3170169815556389285, guid: 98e17675fe1c38e4da5ec60d978ecf78,
+    type: 3}
+  jumpCommand: {fileID: 643891980704467094, guid: 8542a06a20b5fb34798e2acf2203cb34,
+    type: 3}
