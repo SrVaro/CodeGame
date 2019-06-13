@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
-
     private GameObject player;
 
-    /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */    
+    /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */
     void Start()
     {
         player = GameObject.Find("Player");

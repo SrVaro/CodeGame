@@ -8,7 +8,7 @@ public class Fade_Scene : MonoBehaviour
 {
     public RawImage fadeOutUIImage;
     public float fadeSpeed = 0.8f;
-    
+
     public enum FadeDirection{ In, Out }
 
     void OnEnable()

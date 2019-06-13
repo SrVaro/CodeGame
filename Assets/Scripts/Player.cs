@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     private GameObject goal;
 
     /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */
-    void Start() {
+    void Start() 
+    {
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
 
@@ -23,71 +24,74 @@ public class Player : MonoBehaviour
     }
 
     /* Metodos para comprobar si el camino del jugador esta bloqueado en las diversas direcciones */
-    public bool BlockedUp(){
-
+    public bool BlockedUp()
+    {
         upCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
         if (gapsOcuppied[0] != null){
-            gapsOcuppied = new Collider2D[1];  
+            gapsOcuppied = new Collider2D[1];
             return true;
-        }          
-        gapsOcuppied = new Collider2D[1];  
-        
+        }
+        gapsOcuppied = new Collider2D[1];
+
         return false;
     }
 
-    public bool BlockedDown(){
-
+    public bool BlockedDown()
+    {
         bool blocked = false;
 
         downCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
         if (gapsOcuppied[0] != null){
-            gapsOcuppied = new Collider2D[1];  
+            gapsOcuppied = new Collider2D[1];
             blocked = true;
-        }              
+        }
 
-        gapsOcuppied = new Collider2D[1];  
+        gapsOcuppied = new Collider2D[1];
 
         return blocked;
     }
 
-    public bool BlockedLeft(){
-
+    public bool BlockedLeft()
+    {
         bool blocked = false;
 
         leftCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
-        if (gapsOcuppied[0] != null){
-            gapsOcuppied = new Collider2D[1];  
+        if (gapsOcuppied[0] != null)
+        {
+            gapsOcuppied = new Collider2D[1];
             blocked = true;
-        }          
+        }
 
-        gapsOcuppied = new Collider2D[1];     
+        gapsOcuppied = new Collider2D[1];
 
         return blocked; 
 
     }
 
-    public bool BlockedRight(){
-
+    public bool BlockedRight()
+    {
         bool blocked = false;
 
         rightCollider.OverlapCollider(contactFilter, gapsOcuppied);
 
-        if (gapsOcuppied[0] != null){
-            gapsOcuppied = new Collider2D[1];  
+        if (gapsOcuppied[0] != null)
+        {
+            gapsOcuppied = new Collider2D[1];
             blocked = true;
-        }     
+        }
 
-        gapsOcuppied = new Collider2D[1];     
+        gapsOcuppied = new Collider2D[1];
 
-        return blocked;      
+        return blocked;
 
     }
 
     // Metodo que comprueba si el jugador se encuentra en las escaleras (Condicion de victoria)
-    public bool checkWinCondition(){
+    public bool checkWinCondition()
+    {
         bool winCondition = false;
 
         if(GetComponent<BoxCollider2D>().OverlapPoint(goal.transform.position)) winCondition = true;

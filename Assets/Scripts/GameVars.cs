@@ -50,20 +50,24 @@ public class GameVars : MonoBehaviour
     /* Metodo que guarda el ultimo nivel jugado */
     public void saveLastLevel(string level)
     {
-        if(PlayerPrefs.HasKey(level))
+        if(PlayerPrefs.HasKey("level"))
         {
-            string lastLevel = PlayerPrefs.GetString("level");
+            int lastLevel = GetLevelNumber(PlayerPrefs.GetString("level"));
 
-            string temp1 = lastLevel.Substring(lastLevel.Length -1, 1);
+            int newLevelNumber =  GetLevelNumber(level);
 
-            int lastLevelNumber = int.Parse(temp1);
-
-            string temp2 = level.Substring(level.Length -1, 1);
-
-            int newLevelNumber = int.Parse(temp2);
-
-            if(newLevelNumber > lastLevelNumber) PlayerPrefs.SetString("level", level);
-                
+            if(newLevelNumber > lastLevel) PlayerPrefs.SetString("level", level);
         }
+    }
+
+    private int GetLevelNumber(string level)
+    {
+        string temp = level;
+        string output = temp.Substring(temp.Length -1, 1);
+        int levelNumber = int.Parse(output);
+
+        levelNumber++;
+
+        return levelNumber;
     }
 }

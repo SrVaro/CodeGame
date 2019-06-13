@@ -60,7 +60,7 @@ public class Logic : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") != 0f) 
             transform.position -= new Vector3(0, Input.GetAxis("Mouse ScrollWheel") * 1.25f, 0);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
             pauseMenu();
     }
 
@@ -70,7 +70,6 @@ public class Logic : MonoBehaviour
         readCommands();
 
         StartCoroutine("readActions");
-
     }
 
     /* Corutina que lee las acciones de la lista y los ejecuta de uno en uno, ademas de añadir las
@@ -91,7 +90,6 @@ public class Logic : MonoBehaviour
             switch (actionList[i])
             {
                 case "Up":
-
                     if(!playerScript.BlockedUp())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -101,12 +99,9 @@ public class Logic : MonoBehaviour
                         }
                         if(player.GetComponent<Player>().checkWinCondition()) rankLevel();
                     }
-
-                    
                 break;
 
                 case "Down":
-
                     if(!playerScript.BlockedDown())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -119,7 +114,6 @@ public class Logic : MonoBehaviour
                 break;
 
                 case "Left":
-
                     if(!playerScript.BlockedLeft())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -129,11 +123,9 @@ public class Logic : MonoBehaviour
                         }
                         if(player.GetComponent<Player>().checkWinCondition()) rankLevel();
                     }
-
                 break;
 
                 case "Right":
-               
                     if(!playerScript.BlockedRight())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -143,11 +135,9 @@ public class Logic : MonoBehaviour
                         }
                         if(player.GetComponent<Player>().checkWinCondition()) rankLevel();
                     }
-
                 break;
 
                 case "FUp":
-
                     while(!playerScript.BlockedUp())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -157,11 +147,9 @@ public class Logic : MonoBehaviour
                         }
                         if(player.GetComponent<Player>().checkWinCondition()) rankLevel();
                     }
-
                 break;
 
                 case "FDown":
-
                     while(!playerScript.BlockedDown())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -171,11 +159,9 @@ public class Logic : MonoBehaviour
                         }
                         if(player.GetComponent<Player>().checkWinCondition()) rankLevel();
                     }
-
                 break;
 
                 case "FLeft":
-
                     while(!playerScript.BlockedLeft())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -185,12 +171,9 @@ public class Logic : MonoBehaviour
                         }
                         if(player.GetComponent<Player>().checkWinCondition()) rankLevel();
                     }
-
-
                 break;
 
                 case "FRight":
-               
                     while(!playerScript.BlockedRight())
                     {
                         for (float value = movement; value >= 0; value -= 0.1f)
@@ -200,27 +183,21 @@ public class Logic : MonoBehaviour
                         }
                         if(player.GetComponent<Player>().checkWinCondition()) rankLevel();
                     }
-
-
                 break;
 
                 case "JumpEnd":
-                
                     jumpEnd = i;
-
                 break;
 
                 case "Jump":
-
                     i = jumpEnd;
-
                 break;
             }
         }
 
         /* Si se realizan todas las acciones y aun no se ha llegado a la meta se reinicia el nivel */
         if(!player.GetComponent<Player>().checkWinCondition()) restartLevel();
-        
+
     }
 
     /* Metodo para leer todas los comandos introducidos por el usuario y guardar sus acciones en una lista.
@@ -231,18 +208,17 @@ public class Logic : MonoBehaviour
         {
             gap.OverlapCollider(contactFilter, gapCommand);
 
-            foreach (var command in gapCommand) {
-
+            foreach (var command in gapCommand)
+            {
                 if (command != null)
                 {
-
                     this.actionList.Add(command.gameObject.GetComponent<Command>().action);
                     if(command.gameObject.GetComponent<Command>().action != "JumpEnd")
                     {
                         this.commands++;
                     }
                     gapCommand = new Collider2D[2];
-                }              
+                }
             }
         }
     }

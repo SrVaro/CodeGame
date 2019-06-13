@@ -11,7 +11,8 @@ public class Button_Controller : MonoBehaviour
     private Vector2 scale = new Vector2(1.5f, 1.5f);
 
     /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */    
-    void Start() {
+    void Start() 
+    {
         string temp = PlayerPrefs.GetString("level");
         string output = temp.Substring(temp.Length -1, 1);
         int levelNumber = int.Parse(output);
@@ -82,7 +83,8 @@ public class Button_Controller : MonoBehaviour
      public void LoadLastLevel()
     {
         string lastLevel = PlayerPrefs.GetString("level");
-        if(PlayerPrefs.HasKey("level")){
+        if(PlayerPrefs.HasKey("level"))
+        {
             StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, lastLevel));
         }else{
             StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, "Level1"));
