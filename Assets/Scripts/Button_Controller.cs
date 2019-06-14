@@ -10,8 +10,8 @@ public class Button_Controller : MonoBehaviour
 
     private Vector2 scale = new Vector2(1.5f, 1.5f);
 
-    /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */    
-    void Start() 
+    /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */
+    void Start()
     {
         string temp = PlayerPrefs.GetString("level");
         string output = temp.Substring(temp.Length -1, 1);
@@ -95,7 +95,6 @@ public class Button_Controller : MonoBehaviour
     {
         GameObject.Find("CommandPanel").GetComponent<Logic>().pauseMenu();
     }
-    
 
     public void LoadNextLevel()
     {

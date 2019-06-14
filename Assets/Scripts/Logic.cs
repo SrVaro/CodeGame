@@ -8,9 +8,9 @@ public class Logic : MonoBehaviour
     private Vector2 initialPosition;
 
     public GameObject playButton, menu, gameUI;
-    
+
     public int highScore, lowScore;
-    
+
     public Collider2D[] gaps;
 
     private Collider2D[] gapCommand = new Collider2D[2];
@@ -34,7 +34,7 @@ public class Logic : MonoBehaviour
     private float maxY;
 
     /* Esta funcion se ejecuta siempre al inicio de la escena y se utiliza para inicializar las variables */
-    void Start() 
+    void Start()
     {
         maxY = transform.position.y;
 
@@ -51,13 +51,13 @@ public class Logic : MonoBehaviour
         GameVars.instance.setLevel(SceneManager.GetActiveScene().name);
         GameVars.instance.setScore(0);
     }
-    
+
     /* Funcion que se ejecuta cada FRAME del juego, es decir 60 veces por segundo */
     void Update()
     {
         if (transform.position.y < maxY) transform.position = new Vector3(transform.position.x, maxY, transform.position.z);
 
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f) 
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
             transform.position -= new Vector3(0, Input.GetAxis("Mouse ScrollWheel") * 1.25f, 0);
 
         if (Input.GetKeyDown(KeyCode.P))
@@ -82,7 +82,7 @@ public class Logic : MonoBehaviour
         int jumpEnd = 0;
 
         Transform pT = player.transform;
-        
+
         /* Se itera sobre el numero de acciones de la lista, se utiliza un bucle for y no un foreach
            ya que en el bucle for podemos modificar el contador y asi controlar el flujo de las acciones */
         for (int i = 0; i < actionList.Count; i++)
@@ -242,7 +242,7 @@ public class Logic : MonoBehaviour
 
         StartCoroutine(GameObject.FindObjectOfType<Fade_Scene>().FadeAndLoadScene(Fade_Scene.FadeDirection.In, "WinScreen"));
     }
-    
+
     // Metodo utilizado para reiniciar el nivel
     public void restartLevel()
     {

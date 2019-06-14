@@ -12,10 +12,10 @@ public class JumpCommand : MonoBehaviour
     private Vector3 gapPosition;
 
     public Material LineMaterial;
-    
-    public GameObject jump, jumpEnd;   
 
-    private LineRenderer line; 
+    public GameObject jump, jumpEnd;
+
+    private LineRenderer line;
 
      /* Funcion que se ejecuta cuando se inicia el inicio */
     void Start ()
@@ -31,12 +31,12 @@ public class JumpCommand : MonoBehaviour
          line.material = LineMaterial;
 
          line.startWidth = 0.5f;
-         
+
          line.endWidth = 0.5f;
     }
-     
+
     /* Metodo que se ejecuta una vez por FRAME, es decir, 60 por segundos */
-    void Update () 
+    void Update ()
     {
         if (jump != null && jumpEnd != null)
         {
@@ -80,7 +80,7 @@ public class JumpCommand : MonoBehaviour
         /* Metodo que se llama cuando el objeto padre entra en un Trigger */
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        actualGap = collision.gameObject.name;      
+        actualGap = collision.gameObject.name;
     }
 
     /* Metodo que se llama cuando el objeto padre sale de un Trigger */

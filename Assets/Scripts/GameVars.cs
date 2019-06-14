@@ -2,7 +2,7 @@
 using System.Collections;
 
 using System.Collections.Generic;
-    
+
 public class GameVars : MonoBehaviour
 {
 
@@ -18,12 +18,12 @@ public class GameVars : MonoBehaviour
         if (instance == null)  instance = this;
 
         // Si la instancia que es otra diferente a esta destruye la otra, ya que solo puede haber una instancia de GameVars
-        else if (instance != this) Destroy(gameObject);    
-        
+        else if (instance != this) Destroy(gameObject);
+
         // Hace que este objeto no se destruya entre escenas
         DontDestroyOnLoad(gameObject);
     }
-    
+
     /* GETTERS y SETTERS */
     public int getScore()
     {
